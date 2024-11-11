@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Hamcrest matchers
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    
+    // JUnit for tests
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.10.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.10.0"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+
+    // Mockito inline mocking
+    //testCompile "org.mockito:mockito-inline:+"
+    testImplementation "org.mockito:mockito-core:3.+"
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'junit-jupiter'
+    }
+    testLogging {
+        events "passed", "skipped", "failed"
+	exceptionFormat "short"
+    }
+}
+compileTestJava {
+	options.compilerArgs += '-parameters'
+	options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    // Enable assertions (-ea) for tests
+    enableAssertions = true
+}
+
+task zipSource(type: Zip) {
+    from layout.projectDirectory
+    exclude 'build/**'
+    exclude 'bin/**'
+    exclude '.gradle/**'
+    exclude '.settings/**'
+    exclude '**/*.swp'
+    exclude '.classpath'
+    exclude '.jqwik-database'
+    exclude '**/HookedTests.java'
+    destinationDirectory.set(layout.buildDirectory)
+    archiveFileName.set('se320-homework3.zip')
+}
