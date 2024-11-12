@@ -35,4 +35,10 @@ public class MockTests {
         // refactoring), this test should pass.  Until then, it will fail.
         assertNull(c.requestFile("DUMMY", "DUMMY"));
     }
+
+    @Test
+    public void clientRequestFileWorks() {
+        Client c = new Client();
+        String result = c.requestFile("CORRECT_ADDRESS", "CORRECT_FILE");
+    }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.IllegalArgumentException;
 import java.lang.StringBuilder;
 import java.lang.UnsupportedOperationException;
+import java.nio.channels.NotYetConnectedException;
 
 public class Client {
 
@@ -28,20 +29,29 @@ public class Client {
 	// To be clear: do NOT implement the methods below.  Instead, make it possible
 	// to run the code below with a mock, rather than this dummy implementation.
         ServerConnection conn = new ServerConnection() {
+            private boolean connected = false;
+            private boolean reading = false;
+
             public boolean connectTo(String address) throws IOException {
-                throw new UnsupportedOperationException();
+                connected = true;
+                return address.equalsIgnoreCase("CORRECT_ADDRESS");
             }
             public boolean requestFileContents(String filename) throws IOException {
-                throw new UnsupportedOperationException();
+                if (connected) return filename.equalsIgnoreCase("CORRECT_FILE");
+                else throw new NotYetConnectedException();
             }
             public String read() throws IOException {
-                throw new UnsupportedOperationException();
+                if (connected) reading = true;
             }
             public boolean moreBytes() throws IOException {
                 throw new UnsupportedOperationException();
             }
             public void closeConnection() throws IOException {
-                throw new UnsupportedOperationException();
+                if (connected) {
+                    connected = false;
+                } else {
+                    throw new NotYetConnectedException();
+                }
             }
         };
 
