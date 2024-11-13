@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="edu.drexel.se320.MockTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-11-12T18:43:58" hostname="DESKTOP-NEGDAQR" time="0.654">
+<testsuite name="edu.drexel.se320.MockTests" tests="16" skipped="0" failures="0" errors="0" timestamp="2024-11-13T01:39:58" hostname="DESKTOP-HP0VUME" time="0.46">
   <properties/>
-  <testcase name="testServerConnectionFailureGivesNull()" classname="edu.drexel.se320.MockTests" time="0.654"/>
+  <testcase name="test10a()" classname="edu.drexel.se320.MockTests" time="0.358"/>
+  <testcase name="test10b()" classname="edu.drexel.se320.MockTests" time="0.006"/>
+  <testcase name="test10c()" classname="edu.drexel.se320.MockTests" time="0.003"/>
+  <testcase name="test10d()" classname="edu.drexel.se320.MockTests" time="0.002"/>
+  <testcase name="test10e()" classname="edu.drexel.se320.MockTests" time="0.003"/>
+  <testcase name="testMockDemo()" classname="edu.drexel.se320.MockTests" time="0.057"/>
+  <testcase name="test1()" classname="edu.drexel.se320.MockTests" time="0.002"/>
+  <testcase name="test2()" classname="edu.drexel.se320.MockTests" time="0.004"/>
+  <testcase name="test3()" classname="edu.drexel.se320.MockTests" time="0.001"/>
+  <testcase name="test4()" classname="edu.drexel.se320.MockTests" time="0.004"/>
+  <testcase name="test5()" classname="edu.drexel.se320.MockTests" time="0.002"/>
+  <testcase name="test6()" classname="edu.drexel.se320.MockTests" time="0.003"/>
+  <testcase name="test7()" classname="edu.drexel.se320.MockTests" time="0.002"/>
+  <testcase name="test8()" classname="edu.drexel.se320.MockTests" time="0.002"/>
+  <testcase name="test9()" classname="edu.drexel.se320.MockTests" time="0.002"/>
+  <testcase name="testServerConnectionFailureGivesNull()" classname="edu.drexel.se320.MockTests" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

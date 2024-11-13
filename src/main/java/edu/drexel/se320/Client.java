@@ -10,42 +10,43 @@ public class Client {
 
     private String lastResult;
     StringBuilder sb = null;
+    private final ServerConnection conn;
 
-    public Client() {
+    public Client(ServerConnection conn) {
+        this.conn = conn;
         lastResult = "";
     }
 
-    public String requestFile(String server, String file) {
-        if (server == null)
-            throw new IllegalArgumentException("Null server address");
-        if (file == null)
-            throw new IllegalArgumentException("Null file");
-
-	// This ServerConnection is here only as a placeholder --- the real dependency
-	// doesn't exist yet.  Your tests will need to make sure the code below this
-	// definition of conn interacts with connections correctly despite not having
-	// a real ServerConnection.
-	//
-	// To be clear: do NOT implement the methods below.  Instead, make it possible
-	// to run the code below with a mock, rather than this dummy implementation.
-        ServerConnection conn = new ServerConnection() {
+    public Client() {
+        this(new ServerConnection() {
             private boolean connected = false;
-            private boolean reading = false;
+            private boolean continueReading = false;
 
             public boolean connectTo(String address) throws IOException {
                 connected = true;
                 return address.equalsIgnoreCase("CORRECT_ADDRESS");
             }
+
             public boolean requestFileContents(String filename) throws IOException {
                 if (connected) return filename.equalsIgnoreCase("CORRECT_FILE");
                 else throw new NotYetConnectedException();
             }
+
             public String read() throws IOException {
-                if (connected) reading = true;
+                if (connected && continueReading) {
+                    return null;
+                }
+                return null;
             }
+
             public boolean moreBytes() throws IOException {
-                throw new UnsupportedOperationException();
+                if (connected) {
+                    continueReading = true;
+                    return false;
+                }
+                return false;
             }
+
             public void closeConnection() throws IOException {
                 if (connected) {
                     connected = false;
@@ -53,7 +54,14 @@ public class Client {
                     throw new NotYetConnectedException();
                 }
             }
-        };
+        });
+    }
+
+    public String requestFile(String server, String file) {
+        if (server == null)
+            throw new IllegalArgumentException("Null server address");
+        if (file == null)
+            throw new IllegalArgumentException("Null file");
 
 	// We'll use a StringBuilder to construct large strings more efficiently
 	// than repeated linear calls to string concatenation.
